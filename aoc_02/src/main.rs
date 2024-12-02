@@ -13,7 +13,7 @@ fn main() {
 fn count_safe_lines(data: &Vec<Vec<i32>>) -> i32 {
     let mut count = 0;
     for line in data {
-        if is_safe(&line) {
+        if is_safe(line) {
             count += 1;
         }
     }
@@ -23,9 +23,7 @@ fn count_safe_lines(data: &Vec<Vec<i32>>) -> i32 {
 fn count_safe_lines_alt(data: &Vec<Vec<i32>>) -> i32 {
     let mut count = 0;
     for line in data {
-        if is_safe(&line) {
-            count += 1;
-        } else if is_safe_alt(&line) {
+        if is_safe(line) || is_safe_alt(line) {
             count += 1;
         }
     }
@@ -38,7 +36,7 @@ fn is_safe_alt(levels: &[i32]) -> bool {
             .iter()
             .enumerate()
             .filter(|&(x, _)| x != i)
-            .map(|(_, item)| item.clone())
+            .map(|(_, item)| *item)
             .collect::<Vec<_>>();
         if is_safe(&variation) {
             return true;
